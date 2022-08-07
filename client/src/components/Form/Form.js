@@ -21,10 +21,11 @@ const Form = () => {
       <form
         autoComplete="off"
         noValidate
-        className={classes.form}
+        className={`${classes.root} ${classes.form}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6">Creating a Memory</Typography>
+        <Typography variant="h6">
+        </Typography>
         <TextField
           name="creator"
           variant="outlined"
@@ -34,58 +35,65 @@ const Form = () => {
           onChange={(e) =>
             setPostData({ ...postData, creator: e.target.value })
           }
-        ></TextField>
+        />
         <TextField
           name="title"
           variant="outlined"
-          label="Creator"
+          label="Title"
           fullWidth
-          value={postData.creator}
+          value={postData.title}
           onChange={(e) => setPostData({ ...postData, title: e.target.value })}
-        ></TextField>
+        />
         <TextField
           name="message"
           variant="outlined"
-          label="Creator"
+          label="Message"
           fullWidth
-          value={postData.creator}
+          multiline
+          rows={4}
+          value={postData.message}
           onChange={(e) =>
             setPostData({ ...postData, message: e.target.value })
           }
-        ></TextField>
+        />
         <TextField
           name="tags"
           variant="outlined"
-          label="Creator"
+          label="Tags (coma separated)"
           fullWidth
-          value={postData.creator}
-          onChange={(e) => setPostData({ ...postData, tags: e.target.value })}
-        ></TextField>
+          value={postData.tags}
+          onChange={(e) =>
+            setPostData({ ...postData, tags: e.target.value.split(",") })
+          }
+        />
         <div className={classes.fileInput}>
           <FileBase
             type="file"
             multiple={false}
-            onDone={(base64) =>
+            onDone={({ base64 }) =>
               setPostData({ ...postData, selectedFile: base64 })
             }
-          ></FileBase>
-          <Button
-            className={classes.buttonSubmit}
-            variant="container"
-            color="primary"
-            size="large"
-            type="submit"
-            fullWidth
-          ></Button>
-          <Button
-            variant="contain"
-            color="secondary"
-            size="small"
-            type="submit"
-            onClick={clear}
-            fullWidth
-          >Submit</Button>
+          />
         </div>
+        <Button
+          className={classes.buttonSubmit}
+          variant="contained"
+          color="primary"
+          size="large"
+          type="submit"
+          fullWidth
+        >
+          Submit
+        </Button>
+        <Button
+          variant="contained"
+          color="secondary"
+          size="small"
+          onClick={clear}
+          fullWidth
+        >
+          Clear
+        </Button>
       </form>
     </Paper>
   );
