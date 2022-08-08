@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import useStyle from "./styles.js";
 import FileBase from "react-file-base64";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
-
+import { useDispatch } from "react-redux";
+import { createPosts } from "../../actions/posts.js";
+  
 const Form = () => {
   const [postData, setPostData] = useState({
     creator: "",
@@ -11,9 +13,15 @@ const Form = () => {
     tags: "",
     selectedFile: "",
   });
-  const classes = useStyle();
 
-  const handleSubmit = () => {};
+  const classes = useStyle();
+  const dispatch = useDispatch();
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(createPosts(postData));
+  };
 
   const clear = () => {};
   return (
@@ -24,8 +32,7 @@ const Form = () => {
         className={`${classes.root} ${classes.form}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6">
-        </Typography>
+        <Typography variant="h6"></Typography>
         <TextField
           name="creator"
           variant="outlined"
